@@ -1,0 +1,113 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample serice for managing orders",
+        "title": "Sample API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "email": "soberkoder@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/api/addbeer": {
+            "post": {
+                "description": "add by json beer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "beers"
+                ],
+                "summary": "Add a Beer",
+                "parameters": [
+                    {
+                        "description": "Add Beer",
+                        "name": "beer",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.Beer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Beer"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/getbeer/{id}": {
+            "get": {
+                "description": "Get Beer for by beer_id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "beer"
+                ],
+                "summary": "Get Beer",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Beer Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.Beer": {
+            "type": "object",
+            "properties": {
+                "abv": {
+                    "type": "number"
+                },
+                "ibu": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "srm": {
+                    "type": "number"
+                },
+                "style": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "upc": {
+                    "type": "number"
+                },
+                "update": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

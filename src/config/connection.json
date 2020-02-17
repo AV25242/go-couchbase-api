@@ -1,0 +1,7 @@
+{
+    "connection" : "couchbase://localhost",
+    "bucket" :"beer-sample",
+    "username":"Administrator",
+    "password":"password"
+
+}

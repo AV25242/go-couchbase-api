@@ -1,0 +1,75 @@
+basePath: /
+definitions:
+  main.Beer:
+    properties:
+      abv:
+        type: number
+      ibu:
+        type: number
+      id:
+        type: string
+      name:
+        type: string
+      srm:
+        type: number
+      style:
+        type: string
+      type:
+        type: string
+      upc:
+        type: number
+      update:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: soberkoder@swagger.io
+    name: API Support
+  description: This is a sample serice for managing orders
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Sample API
+  version: "1.0"
+paths:
+  /api/addbeer:
+    post:
+      consumes:
+      - application/json
+      description: add by json beer
+      parameters:
+      - description: Add Beer
+        in: body
+        name: beer
+        required: true
+        schema:
+          $ref: '#/definitions/main.Beer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Beer'
+      summary: Add a Beer
+      tags:
+      - beers
+  /api/getbeer/{id}:
+    get:
+      description: Get Beer for by beer_id
+      parameters:
+      - description: Beer Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Get Beer
+      tags:
+      - beer
+swagger: "2.0"
