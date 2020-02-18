@@ -42,7 +42,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "beers"
+                    "beer"
                 ],
                 "summary": "Add a Beer",
                 "parameters": [
@@ -61,6 +61,40 @@ var doc = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/main.Beer"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deletebeer": {
+            "post": {
+                "description": "delete a beer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "beer"
+                ],
+                "summary": "delete a Beer",
+                "parameters": [
+                    {
+                        "description": "Delete Beer",
+                        "name": "id",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/string"
                         }
                     }
                 }
@@ -100,7 +134,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "beers"
+                    "beer"
                 ],
                 "summary": "update a Beer",
                 "parameters": [

@@ -52,3 +52,15 @@ func ModifyBeer(beer Beer) (Beer, error) {
 	return beer, err
 
 }
+
+func RemoveBeer(id string) error {
+
+	bucket := utils.Bucket()
+	_, err := bucket.Remove(id, 0)
+	if err != nil {
+		fmt.Println(err.Error())
+		return err
+	}
+	return err
+
+}

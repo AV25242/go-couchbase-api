@@ -55,7 +55,29 @@ paths:
             $ref: '#/definitions/main.Beer'
       summary: Add a Beer
       tags:
-      - beers
+      - beer
+  /api/deletebeer:
+    post:
+      consumes:
+      - application/json
+      description: delete a beer
+      parameters:
+      - description: Delete Beer
+        in: body
+        name: id
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/string'
+      summary: delete a Beer
+      tags:
+      - beer
   /api/getbeer/{id}:
     get:
       description: Get Beer for by beer_id
@@ -93,5 +115,5 @@ paths:
             $ref: '#/definitions/main.Beer'
       summary: update a Beer
       tags:
-      - beers
+      - beer
 swagger: "2.0"

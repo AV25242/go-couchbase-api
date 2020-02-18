@@ -2,13 +2,13 @@ package main
 
 import (
 	_ "app/docs"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
-	"utils"
-
 	"repository"
+	"utils"
 
 	"github.com/gorilla/mux"
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -92,6 +92,31 @@ func UpdateBeer(response http.ResponseWriter, request *http.Request) {
 	json.NewEncoder(response).Encode(beer)
 }
 
+// DeleteBeer godoc
+// @Summary delete a Beer
+// @Description delete a beer
+// @Tags beer
+// @Accept  json
+// @Produce  json
+// @Param id body string true "Delete Beer"
+// @Success 200 {object} string
+// @Router /api/deletebeer [post]
+func DeleteBeer(response http.ResponseWriter, request *http.Request) {
+	response.Header().Set("content-type", "application/json")
+
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(request.Body)
+	id := buf.String()
+
+	err := repository.RemoveBeer(id)
+	if err != nil {
+		response.WriteHeader(http.StatusInternalServerError)
+		response.Write([]byte(`{ "message": "` + err.Error() + `" }`))
+		return
+	}
+	json.NewEncoder(response).Encode("Beer with id " + id + " deleted successfully !!!")
+}
+
 // @title Sample API
 // @version 1.0
 // @description This is a sample serice for managing brewery
@@ -112,6 +137,7 @@ func main() {
 	router.Path("/api/getbeer/{id}").Methods("GET").HandlerFunc(GetBeer)
 	router.Path("/api/addbeer").Methods("POST").HandlerFunc(AddBeer)
 	router.Path("/api/updatebeer").Methods("POST").HandlerFunc(UpdateBeer)
+	router.Path("/api/deletebeer").Methods("POST").HandlerFunc(DeleteBeer)
 
 	//swagger
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
