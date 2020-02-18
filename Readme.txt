@@ -1,0 +1,3 @@
+After cloning the repository, install all go dependences by going to the root folder and executing the following command
+
+go get ./...
