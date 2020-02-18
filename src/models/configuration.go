@@ -16,7 +16,7 @@ type Configuration struct {
 
 func GetConfiguration() Configuration {
 	config := Configuration{}
-	content, err := ioutil.ReadFile("../config/connection.json")
+	content, err := ioutil.ReadFile("config/connection.json")
 	if err != nil {
 		fmt.Println("Error" + err.Error())
 	}
