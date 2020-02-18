@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample serice for managing orders",
+        "description": "This is a sample serice for managing brewery",
         "title": "Sample API",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
@@ -72,6 +72,40 @@
                 ],
                 "responses": {
                     "200": {}
+                }
+            }
+        },
+        "/api/updatebeer": {
+            "post": {
+                "description": "update a beer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "beers"
+                ],
+                "summary": "update a Beer",
+                "parameters": [
+                    {
+                        "description": "Update Beer",
+                        "name": "beer",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.Beer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Beer"
+                        }
+                    }
                 }
             }
         }

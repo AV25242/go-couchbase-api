@@ -17,27 +17,38 @@ type Beer struct {
 	Update string  `json:update`
 }
 
-func GetBeer(id string) (error, Beer) {
+func GetBeer(id string) (Beer, error) {
 	bucket := utils.Bucket()
 
 	var beer Beer
 	_, err := bucket.Get(id, &beer)
 	if err != nil {
 		fmt.Println(err.Error())
-		return err, beer
+		return beer, err
 	}
-	return err, beer
+	return beer, err
 
 }
 
-func AddBeer(beer Beer) (error, Beer) {
+func AddBeer(beer Beer) (Beer, error) {
 
 	bucket := utils.Bucket()
 	_, err := bucket.Insert(beer.Id, &beer, 0)
 	if err != nil {
 		fmt.Println(err.Error())
-		return err, beer
+		return beer, err
 	}
-	return err, beer
+	return beer, err
+
+}
+func ModifyBeer(beer Beer) (Beer, error) {
+
+	bucket := utils.Bucket()
+	_, err := bucket.Upsert(beer.Id, &beer, 0)
+	if err != nil {
+		fmt.Println(err.Error())
+		return beer, err
+	}
+	return beer, err
 
 }

@@ -89,6 +89,40 @@ var doc = `{
                     "200": {}
                 }
             }
+        },
+        "/api/updatebeer": {
+            "post": {
+                "description": "update a beer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "beers"
+                ],
+                "summary": "update a Beer",
+                "parameters": [
+                    {
+                        "description": "Update Beer",
+                        "name": "beer",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.Beer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Beer"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -143,7 +177,7 @@ var SwaggerInfo = swaggerInfo{
 	BasePath:    "/",
 	Schemes:     []string{},
 	Title:       "Sample API",
-	Description: "This is a sample serice for managing orders",
+	Description: "This is a sample serice for managing brewery",
 }
 
 type s struct{}

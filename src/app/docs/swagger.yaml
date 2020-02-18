@@ -26,7 +26,7 @@ info:
   contact:
     email: soberkoder@swagger.io
     name: API Support
-  description: This is a sample serice for managing orders
+  description: This is a sample serice for managing brewery
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -72,4 +72,26 @@ paths:
       summary: Get Beer
       tags:
       - beer
+  /api/updatebeer:
+    post:
+      consumes:
+      - application/json
+      description: update a beer
+      parameters:
+      - description: Update Beer
+        in: body
+        name: beer
+        required: true
+        schema:
+          $ref: '#/definitions/main.Beer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Beer'
+      summary: update a Beer
+      tags:
+      - beers
 swagger: "2.0"

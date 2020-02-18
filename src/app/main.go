@@ -14,6 +14,18 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
+type Beer struct {
+	Id     string  `json:id`
+	Abv    float64 `json:abv`
+	Ibu    float64 `json:ibu`
+	Name   string  `json:name`
+	Srm    float64 `json:srm`
+	Style  string  `json:style`
+	Type   string  `json:type`
+	Upc    float64 `json:upc`
+	Update string  `json:update`
+}
+
 // GetBeer godoc
 // @Summary Get Beer
 // @Description Get Beer for by beer_id
@@ -27,7 +39,7 @@ func GetBeer(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("content-type", "application/json")
 	params := mux.Vars(request)
 	id := params["id"]
-	err, beer := repository.GetBeer(id)
+	beer, err := repository.GetBeer(id)
 	if err != nil {
 		response.WriteHeader(http.StatusInternalServerError)
 		response.Write([]byte(`{ "message": "` + err.Error() + `" }`))
@@ -39,7 +51,7 @@ func GetBeer(response http.ResponseWriter, request *http.Request) {
 // AddBeer godoc
 // @Summary Add a Beer
 // @Description add by json beer
-// @Tags beers
+// @Tags beer
 // @Accept  json
 // @Produce  json
 // @Param beer body Beer true "Add Beer"
@@ -49,7 +61,29 @@ func AddBeer(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("content-type", "application/json")
 	var beer repository.Beer
 	_ = json.NewDecoder(request.Body).Decode(&beer)
-	err, beer := repository.AddBeer(beer)
+	beer, err := repository.AddBeer(beer)
+	if err != nil {
+		response.WriteHeader(http.StatusInternalServerError)
+		response.Write([]byte(`{ "message": "` + err.Error() + `" }`))
+		return
+	}
+	json.NewEncoder(response).Encode(beer)
+}
+
+// UpdateBeer godoc
+// @Summary update a Beer
+// @Description update a beer
+// @Tags beer
+// @Accept  json
+// @Produce  json
+// @Param beer body Beer true "Update Beer"
+// @Success 200 {object} Beer
+// @Router /api/updatebeer [post]
+func UpdateBeer(response http.ResponseWriter, request *http.Request) {
+	response.Header().Set("content-type", "application/json")
+	var beer repository.Beer
+	_ = json.NewDecoder(request.Body).Decode(&beer)
+	beer, err := repository.ModifyBeer(beer)
 	if err != nil {
 		response.WriteHeader(http.StatusInternalServerError)
 		response.Write([]byte(`{ "message": "` + err.Error() + `" }`))
@@ -77,6 +111,7 @@ func main() {
 	//router.Path("/api/bucketinfo").Methods("GET").HandlerFunc(BucketInfo)
 	router.Path("/api/getbeer/{id}").Methods("GET").HandlerFunc(GetBeer)
 	router.Path("/api/addbeer").Methods("POST").HandlerFunc(AddBeer)
+	router.Path("/api/updatebeer").Methods("POST").HandlerFunc(UpdateBeer)
 
 	//swagger
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
