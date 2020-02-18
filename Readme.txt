@@ -16,3 +16,13 @@ TO
 
 content, err := ioutil.ReadFile("../config/connection.json")
 
+Final step :
+
+         From the src folder execute the following
+         go run app/main.go
+         
+This should print the bucket name and a message if the server is started
+
+Next navigate to 
+
+http://localhost:8080/swagger/index.html
